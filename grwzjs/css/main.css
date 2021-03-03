@@ -1,0 +1,952 @@
+@charset "utf-8";
+/* CSS Document */
+*{
+	margin: 0px;
+	padding: 0px;
+	list-style: none;
+}
+/*取消默认的内外边距和列表的默认圈圈*/
+body{
+	font-family: "microsoft yahei","Arial Unicode MS", "微软雅黑", "黑体";
+	font-size: 14px;
+	/*设置整个网页的字体*/
+}
+.clearfix::before,.clearfix::after{
+	content: "";
+	display: table;
+}
+.clearfix::after{
+	clear: both;
+}
+a{
+	text-decoration: none;
+}
+/*取消超链接的下划线*/
+#navbar{
+	width: 100%;
+	height: 60px;
+	/*设置导航栏的高度*/
+	background-color: rgba(34, 34, 34,0.95);
+	/*导航栏的背景颜色*/
+	display: flex;
+	/*设置弹性盒模型*/
+	position: fixed;
+	top:0px;
+	z-index: 999;
+	/*将导航栏永远固定在上方*/
+}
+.logo > a{
+	height: 60px;
+	display: flex;
+	/*设置弹性盒模型和高度*/
+	line-height: 60px;
+	color: rgba(34, 34, 34,0.95);
+	/*设置字体颜色和行距*/
+	font-size: 1.05em;
+	letter-spacing: 0.25em;
+	/*设置字体大小和字间距*/
+}
+
+.logo > a > img{
+	width: 60px;
+	margin-left: 30px;
+}
+/*设置图片的宽度和左边距*/
+.logo > a > div > span{
+	margin-left: 20px;
+	padding-left: 5px;
+	/*设置内外边距*/
+	background-color: white;
+	transition: background-color 0.5s ease-in-out;
+	/*设置背景颜色和过渡属性*/
+}
+
+.logo > a:hover > div > span{
+	background-color: #9bf1ff;
+}
+
+#navbar > .menu{
+	flex-grow: 4;
+	display: flex;
+	justify-content: flex-end;
+	/*设置伸缩盒伸展的值*/
+	line-height: 60px;
+	color: white;
+	/*菜单的颜色和行间距*/
+}
+
+.menu input{
+	height: 30px;
+	width: 150px;
+	border-radius: 0.25em;
+	/*设置文本框的基本属性*/
+}
+
+.menu > div{
+	margin: 0px 20px;
+	padding-left: 20px;
+	width: 110px;
+	/*设置外边距和宽度*/
+	cursor: pointer;
+	/*当鼠标放上去时为手板*/
+	font-weight: 600;
+	letter-spacing: 0.25em;
+	color: white;
+	/*设置字体的颜色、大小和间距*/
+	transition: color 0.5s ease-in-out;
+	/*设置过渡效果*/
+}
+
+.menu > div::after,.menu > div::before{
+	position: absolute;
+	top: 0px;
+	right: 40px;
+	/*设置绝对定位*/
+	content: "";
+	display: block;
+	/*填充内容*/
+	width: 24px;
+	height: 100%;
+	/*设置高度和宽度*/
+	background-image:url(../svg/menu-1.svg);
+	background-repeat: no-repeat;
+	background-position: center;
+	/*设置伪元素的背景*/
+}
+
+.menu > div::after{
+	transition: opacity 0.5s ease-in-out;
+	/*设置过渡属性*/
+	background-image: url(../svg/menu-2.svg);
+	opacity: 0;
+	/*设置背景和不透明度*/
+}
+
+.menu > div:hover{
+	color: #9bf1ff;
+}
+/*设置span的鼠标移上去的颜色*/
+.menu > div:hover::after{
+	opacity: 1;
+}
+/*设置伪元素移上去的不透明度*/
+#menu{
+	position: fixed;
+	top: 0px;
+	z-index: 9999;
+	/*设置绝对定位*/
+	display: none;
+	justify-content: center;
+	align-items: center;
+	/*设置伸缩盒模型的属性*/
+	width: 100%;
+	height: 100%;
+	/*设置高度和宽度*/
+	line-height: 52px;
+	/*设置行高*/
+	font-weight: 600;
+	font-size: 1.05em;
+	letter-spacing: 0.27em;
+	/*设置字体相关属性*/
+	text-transform: uppercase;
+	/*设置字体大写*/
+	background-color: rgba(36,41,67,0.85);
+	color: white;
+	/*设置背景和字体颜色*/
+}
+
+#menu > .menu-inner{
+	width: 340px;
+	text-align: center;
+	/*设置宽度和文字居中对齐*/
+}
+
+.menu-inner a{
+	display: block;
+	color: white;
+	/*设置为块状元素和字体颜色*/
+	height: 100%;
+	width: 100%;
+	/*设置高度和宽度*/
+	transition: color 0.5s ease-in-out;
+	/*设置过渡效果*/
+}
+.menu-inner a:hover{
+	color: #9bf1ff;
+}
+/*设置字体颜色*/
+.links{
+	line-height: 60px;
+}
+/*设置行高*/
+.links > li{
+	border-top: 0.5px solid rgba(255,255,255,0.15);
+}
+/*设置上边框样式*/
+.links > li:nth-of-type(1){
+	border: none;
+}
+/*设置边框为无*/
+.login{
+	margin-top: 20px;
+}
+/*设置上边距和行高*/
+.login > li{
+	position: relative;
+	line-height: 65px;
+}
+.login > li:nth-of-type(2){
+	top: 25px;
+}
+.login a{
+	border: 0.8px solid #fff;
+	transition: 0.5s;
+	position: relative;
+}
+.login a span{
+	line-height: 65px;
+	display: block;
+}
+.login a span i{
+	position: relative;
+	left: 15px;
+	top: 4px;
+}
+.login > li:nth-of-type(1) > a::before,
+.login > li:nth-of-type(1) > a::after,
+.login > li:nth-of-type(1) > a > span::before,
+.login > li:nth-of-type(1) > a > span::after{
+	content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 0px;
+    background: rgba(255, 255, 255, 0.5);
+	transition: 0.4s;
+	z-index: -1;
+	will-change: auto;
+}
+.login > li:nth-of-type(1) > a::after,
+.login > li:nth-of-type(1) > a > span::before{
+	top: auto;
+  	bottom: 0;
+}
+.login > li:nth-of-type(1) > a > span::before,
+.login > li:nth-of-type(1) > a > span::after{
+	transition-delay: 0.4s;
+}
+.login > li:nth-of-type(1) > a:hover::before,
+.login > li:nth-of-type(1) > a:hover::after,
+.login > li:nth-of-type(1) > a >span:hover::before,
+.login > li:nth-of-type(1) > a > span:hover::after{
+	height: 65px;
+}
+.login > li:nth-of-type(2) > a::before,
+.login > li:nth-of-type(2) > a::after,
+.login > li:nth-of-type(2) > a > span::before,
+.login > li:nth-of-type(2) > a > span::after{
+	content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0px;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.5);
+	transition: 0.4s;
+	z-index: -1;
+	will-change: auto;
+}
+.login > li:nth-of-type(2) > a::after,
+.login > li:nth-of-type(2) > a > span::before{
+	left: auto;
+  	right: 0;
+}
+.login > li:nth-of-type(2) > a > span::before,
+.login > li:nth-of-type(2) > a > span::after{
+	transition-delay: 0.4s;
+}
+.login > li:nth-of-type(2) > a:hover::before,
+.login > li:nth-of-type(2) > a:hover::after,
+.login > li:nth-of-type(2) > a >span:hover::before,
+.login > li:nth-of-type(2) > a > span:hover::after{
+	width: 340px;
+}
+.close::after,.close::before{
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	/*设置绝对定位*/
+	content: "";
+	cursor: pointer;
+	/*设置内容为空和鼠标指针*/
+	display: block;
+	width: 75px;
+	height: 75px;
+	/*设置为块状元素和宽高*/
+	background-image: url(../svg/close-1.svg);
+	background-repeat: no-repeat;
+	background-position: center;
+	/*设置背景*/
+}
+
+.close::after{
+	background-image: url(../svg/close-2.svg);
+	opacity: 0;
+	transition: opacity 0.5s ease-in-out;
+	/*把after的不透明度变为0*/
+}
+
+.close:hover::after{
+	opacity: 1;
+}
+/*把after变为不透明*/
+.is-menu-visibility{
+	filter: blur(0.5em);
+}
+/*设置网页为模糊*/
+#container{
+	width: 80%;
+	/*设置宽度*/margin: 0 auto;
+	margin-top: 200px;
+	/*设置绝对定位和外边距以实现水平居中*/
+	display: flex;
+	/*设置伸缩盒模型*/
+	justify-content: center;
+	margin-bottom: 100px;
+}
+#container img{
+	cursor: zoom-in;
+}
+.left{
+	width: 280px;
+	text-align: center;
+	/*设置宽度和文字居中*/
+}
+/*设置左边栏的宽度*/
+.left strong{
+	font-size: 1.25em;
+	font-weight: 100;
+	/*设置字体大小和宽度*/
+	display: block;
+	margin-bottom: 10px;
+	/*设置外边距*/
+}
+.left-one,.left-two,.left-three{
+	border: 1px solid rgba(0, 0, 0, 0.125);
+	border-radius: 0.25em;
+}
+/*设置div的边框*/
+@keyframes imgRotate {
+	from{
+		transform: rotate(0deg);
+	}
+	to{
+		transform: rotate(360deg);
+	}
+}
+.left-one > img:nth-of-type(1){
+	width: 279px;
+	height: 150px;
+	/*设置图片长宽*/
+	border-top-left-radius: 0.25em;
+	border-top-right-radius: 0.25em;
+	/*设置图片上方为圆角*/
+}
+.left-one > img:nth-of-type(2){
+	width: 100px;
+	height: 100px;
+	margin-top: -55px;
+	/*设置长宽和外边距*/
+	border-radius: 50%;
+	border: 2.4px solid rgb(255,255,255);
+	box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
+	/*设置图片的边框*/
+	animation: imgRotate 5s linear infinite;
+}
+.left-one > div{
+	margin-top: 10px;
+	/*设置外边距*/
+}
+.left-one > div > p{
+	margin-top: 10px;
+	margin-bottom: 25px;
+	padding: 0 20px;
+	/*设置内外边距*/
+}
+.left-two{
+	margin: 20px 0px;
+	/*设置与上面和下面的div的距离*/
+	padding: 20px 0px;
+	text-align: justify;
+	/*设置文本左对齐与内边距*/
+}
+.left-two > strong{
+	margin-left: 30px;
+	/*设置外边距*/
+}
+.left-two > ul{
+	color: rgba(168,164,164,1.00);
+}
+/*设置列表文字的颜色*/
+.left-three{
+	padding: 20px 10px;
+}
+/*设置内边距*/
+.left-three > img{
+	width: 120px;
+	height: 120px;
+	margin-top: 10px;
+}
+/*设置宽高和上边距*/
+.center{
+	margin: 0px 30px;
+	width: 615px;
+}
+/*设置左边距*/
+.center-one,.right-one,.center-two{
+	border: 1px solid rgba(0, 0, 0, 0.125);
+	border-radius: 0.25em;
+	padding: 20px 15px;
+}
+/*设置边框和边框圆角属性*/
+.center-one{
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+}
+/*设置边框无圆角*/
+.center-two{
+	border-top: none;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+}
+/*设置边框为无*/
+.center-two > img{
+	width: 585px;
+}
+/*设置图片宽度*/
+h4{
+	font-family: "华文行楷";
+	font-weight: 100;
+	font-size: 1.35em;
+	text-align: center;
+	/*设置字体相关属性和文字居中*/
+	margin-bottom: 20px;
+	/*设置外边距*/
+}
+#wrapper p{
+	text-indent: 2em;
+}
+/*设置首行缩进*/
+.right{
+	width: 280px;
+}
+/*设置右边栏的宽度*/
+.right-one > img{
+	width: 245px;
+	height: 200px;
+	margin-bottom: 20px;
+}
+/*设置宽高和外边距*/
+footer{
+	text-align: center;
+	font-size: 1.5em;
+	font-family: "华文行楷", "黑体";
+	/*设置字体相关属性和文字居中*/
+	background-color: rgba(0,0,0,0.1);
+	line-height: 60px;
+	/*设置背景颜色和行间距*/
+}
+/*my hometown页的CSS--------------------------------*/
+.cont {
+	position: relative;
+	overflow: hidden;
+	height: 100vh;
+	padding: 80px 70px;
+}
+.cont-inner {
+	position: relative;
+	height: 100%;
+}
+.cont-inner:hover .el-bg:after {
+	opacity: 1;
+}
+.el {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 19.2%;
+	height: 100%;
+	background: #252525;
+	transition: width 0.7s, opacity 0.6s 0.7s, z-index 0s 1.3s, transform 0.6s 0.7s;
+	transition: transform 0.6s 0.7s, width 0.7s, opacity 0.6s 0.7s, z-index 0s 1.3s;
+	transition: transform 0.6s 0.7s, width 0.7s, opacity 0.6s 0.7s, z-index 0s 1.3s, transform 0.6s 0.7s;
+	will-change: transform, width, opacity;
+}
+.el:not(.s-active) {
+	cursor: pointer;
+}
+.el-overflow {
+	overflow: hidden;
+	position: relative;
+	height: 100%;
+}
+.el-inner {
+	overflow: hidden;
+	position: relative;
+	height: 100%;
+	transition: transform 1s;
+}
+.cont.s-inactive .el-inner {
+	transform: translate3d(0, 100%, 0);
+}
+.el-bg {
+	position: relative;
+	width: calc(100vw - 140px);
+	height: 100%;
+	transition: transform 0.6s 0.7s;
+	will-change: transform;
+}
+.el-bg:before {
+	content: "";
+	position: absolute;
+	left: 0;
+	top: -5%;
+	width: 100%;
+	height: 110%;
+	background-size: cover;
+	background-position: center center;
+	transition: transform 1s;
+	transform: translate3d(0, 0, 0) scale(1);
+}
+.cont.s-inactive .el-bg:before {
+	transform: translate3d(0, -100%, 0) scale(1.2);
+}
+.el.s-active .el-bg:before {
+	transition: transform 0.8s;
+}
+.el-bg:after {
+	content: "";
+	z-index: 1;
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.3);
+	opacity: 0;
+	transition: opacity 0.5s;
+}
+.cont.s-el-active .el-bg:after {
+	transition: opacity 0.5s 1.4s;
+	opacity: 1 !important;
+}
+.el-preview-cont {
+	z-index: 2;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	transition: all 0.3s 1.2s;
+}
+.cont.s-inactive .el-preview-cont {
+	opacity: 0;
+	transform: translateY(10px);
+}
+.cont.s-el-active .el-preview-cont {
+	opacity: 0;
+	transform: translateY(30px);
+	transition: all 0.5s;
+}
+.el-heading {
+	color: #fff;
+	text-transform: uppercase;
+	font-size: 18px;
+}
+.el-content {
+	z-index: -1;
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	padding: 30px;
+	opacity: 0;
+	pointer-events: none;
+	transition: all 0.1s;
+}
+.el.s-active .el-content {
+	z-index: 2;
+	opacity: 1;
+	pointer-events: auto;
+	transition: all 0.5s 1.4s;
+}
+.el-text {
+	text-transform: uppercase;
+	font-size: 40px;
+	color: #fff;
+}
+.el-close-btn {
+	z-index: -1;
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	width: 60px;
+	height: 60px;
+	opacity: 0;
+	pointer-events: none;
+	transition: all 0s 0.45s;
+	cursor: pointer;
+}
+.el.s-active .el-close-btn {
+	z-index: 5;
+	opacity: 1;
+	pointer-events: auto;
+	transition: all 0s 1.4s;
+}
+.el-close-btn:before, .el-close-btn:after {
+	content: "";
+	position: absolute;
+	left: 0;
+	top: 50%;
+	width: 100%;
+	height: 8px;
+	margin-top: -4px;
+	background: #fff;
+	opacity: 0;
+	transition: opacity 0s;
+}
+.el.s-active .el-close-btn:before, .el.s-active .el-close-btn:after {
+	opacity: 1;
+}
+.el-close-btn:before {
+	transform: rotate(45deg) translateX(100%);
+}
+.el.s-active .el-close-btn:before {
+	transition: all 0.3s 1.4s cubic-bezier(0.72, 0.09, 0.32, 1.57);
+	transform: rotate(45deg) translateX(0);
+}
+.el-close-btn:after {
+	transform: rotate(-45deg) translateX(100%);
+}
+.el.s-active .el-close-btn:after {
+	transition: all 0.3s 1.55s cubic-bezier(0.72, 0.09, 0.32, 1.57);
+	transform: rotate(-45deg) translateX(0);
+}
+.el-index {
+	overflow: hidden;
+	position: absolute;
+	left: 0;
+	bottom: -80px;
+	width: 100%;
+	height: 100%;
+	min-height: 250px;
+	text-align: center;
+	font-size: 20vw;
+	line-height: 0.85;
+	font-weight: bold;
+	transition: transform 0.5s, opacity 0.3s 1.4s;
+	transform: translate3d(0, 1vw, 0);
+}
+.el:hover .el-index {
+	transform: translate3d(0, 0, 0);
+}
+.cont.s-el-active .el-index {
+	transition: transform 0.5s, opacity 0.3s;
+	opacity: 0;
+}
+.el-index-back, .el-index-front {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+}
+.el-index-back {
+	color: #2f3840;
+	opacity: 0;
+	transition: opacity 0.25s 0.25s;
+}
+.el:hover .el-index-back {
+	transition: opacity 0.25s;
+	opacity: 1;
+}
+.el-index-overlay {
+	overflow: hidden;
+	position: relative;
+	transform: translate3d(0, 100%, 0);
+	transition: transform 0.5s 0.1s;
+	color: transparent;
+}
+.el-index-overlay:before {
+	content: attr(data-index);
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	height: 100%;
+	color: #fff;
+	transform: translate3d(0, -100%, 0);
+	transition: transform 0.5s 0.1s;
+}
+.el:hover .el-index-overlay {
+	transform: translate3d(0, 0, 0);
+}
+.el:hover .el-index-overlay:before {
+	transform: translate3d(0, 0, 0);
+}
+.el:nth-child(1) {
+	transform: translate3d(0%, 0, 0);
+	transform-origin: 50% 50%;
+}
+.cont.s-el-active .el:nth-child(1):not(.s-active) {
+	transform: scale(0.5) translate3d(0%, 0, 0);
+	opacity: 0;
+	transition: transform 0.95s, opacity 0.95s;
+}
+.el:nth-child(1) .el-inner {
+	transition-delay: 0s;
+}
+.el:nth-child(1) .el-bg {
+	transform: translate3d(0%, 0, 0);
+}
+.el:nth-child(1) .el-bg:before {
+	transition-delay: 0s;
+	background-image: url(../img/11.jpg);
+}
+.el:nth-child(2) {
+	transform: translate3d(105.2083333333%, 0, 0);
+	transform-origin: 155.2083333333% 50%;
+}
+.cont.s-el-active .el:nth-child(2):not(.s-active) {
+	transform: scale(0.5) translate3d(105.2083333333%, 0, 0);
+	opacity: 0;
+	transition: transform 0.95s, opacity 0.95s;
+}
+.el:nth-child(2) .el-inner {
+	transition-delay: 0.1s;
+}
+.el:nth-child(2) .el-bg {
+	transform: translate3d(-19.2%, 0, 0);
+}
+.el:nth-child(2) .el-bg:before {
+	transition-delay: 0.1s;
+	background-image: url(../img/12.jpg);
+}
+.el:nth-child(3) {
+	transform: translate3d(210.4166666667%, 0, 0);
+	transform-origin: 260.4166666667% 50%;
+}
+.cont.s-el-active .el:nth-child(3):not(.s-active) {
+	transform: scale(0.5) translate3d(210.4166666667%, 0, 0);
+	opacity: 0;
+	transition: transform 0.95s, opacity 0.95s;
+}
+.el:nth-child(3) .el-inner {
+	transition-delay: 0.2s;
+}
+.el:nth-child(3) .el-bg {
+	transform: translate3d(-38.4%, 0, 0);
+}
+.el:nth-child(3) .el-bg:before {
+	transition-delay: 0.2s;
+	background-image: url(../img/13.jpg);
+}
+.el:nth-child(4) {
+	transform: translate3d(315.625%, 0, 0);
+	transform-origin: 365.625% 50%;
+}
+.cont.s-el-active .el:nth-child(4):not(.s-active) {
+	transform: scale(0.5) translate3d(315.625%, 0, 0);
+	opacity: 0;
+	transition: transform 0.95s, opacity 0.95s;
+}
+.el:nth-child(4) .el-inner {
+	transition-delay: 0.3s;
+}
+.el:nth-child(4) .el-bg {
+	transform: translate3d(-57.6%, 0, 0);
+}
+.el:nth-child(4) .el-bg:before {
+	transition-delay: 0.3s;
+	background-image: url("../img/14.jpg");
+}
+.el:nth-child(5) {
+	transform: translate3d(420.8333333333%, 0, 0);
+	transform-origin: 470.8333333333% 50%;
+}
+.cont.s-el-active .el:nth-child(5):not(.s-active) {
+	transform: scale(0.5) translate3d(420.8333333333%, 0, 0);
+	opacity: 0;
+	transition: transform 0.95s, opacity 0.95s;
+}
+.el:nth-child(5) .el-inner {
+	transition-delay: 0.4s;
+}
+.el:nth-child(5) .el-bg {
+	transform: translate3d(-76.8%, 0, 0);
+}
+.el:nth-child(5) .el-bg:before {
+	transition-delay: 0.4s;
+	background-image: url("../img/15.jpg");
+}
+.el:hover .el-bg:after {
+	opacity: 0;
+}
+.el.s-active {
+	z-index: 1;
+	width: 100%;
+	transform: translate3d(0, 0, 0);
+	transition: transform 0.6s, width 0.7s 0.7s, z-index 0s;
+}
+.el.s-active .el-bg {
+	transform: translate3d(0, 0, 0);
+	transition: transform 0.6s;
+}
+.el.s-active .el-bg:before {
+	transition-delay: 0.6s;
+	transform: scale(1.1);
+}
+
+.icon-link {
+	position: absolute;
+	left: 5px;
+	bottom: 5px;
+	width: 32px;
+}
+.icon-link img {
+	width: 100%;
+	vertical-align: top;
+}
+.icon-link-twitter {
+	left: auto;
+	right: 5px;
+}
+/* js动画效果 */
+#tooltip{
+	position: fixed;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(36,41,67,0.85);
+	display:none;
+	align-items: center;
+	justify-content: center;
+	cursor: zoom-out;
+}
+#tooltip > img{
+	max-width: 80%;
+	max-height: 80%;
+}
+@keyframes cursor{
+	0% {
+		opacity: 0;
+	}
+	49.9% {
+		opacity: 0;
+	}
+	50% {
+		opacity: 1;
+	}
+	99.9% {
+		opacity: 1;
+	}
+}
+.type::after{
+	content: '_';
+	animation: cursor 0.5s linear infinite;
+}
+/* myfamily页的css */
+#Fwrap{
+	position: relative;
+	width:100vw;
+	min-height: 100vh;
+	overflow:hidden;
+	font-size: 100%;
+	line-height: 1.6;
+	color:#333;
+	margin-top: 60px;
+}
+.layer{
+	position: absolute;
+	width:100vw;
+	min-height: 100vh;
+	overflow: hidden;
+}
+.layer .content-wrapper{
+	width:100vw;
+	min-height:100vh;
+	position:absolute;
+}
+.layer .content-body{
+	width:25%;
+	position: absolute;
+	top:50%;
+	transform:translateY(-50%);
+	text-align: center;
+}
+.layer .content-body p{
+	text-indent:2rem;
+	text-align: left;
+}
+.layer img{
+	width: 250px;
+	position: absolute;
+	top:50%;
+	left:50%;
+	transform:translate(-50%,-50%);
+}
+.bottom{
+	background: #222;
+	z-index: 1;
+}
+.bottom .content-body{
+	right:10%;
+	word-wrap: break-word;
+}
+.bottom h2{
+	color:#f62368;
+}
+.bottom p{
+	color:#eee;
+	width: 350px;
+}
+.top{
+	background: #eee;
+	color:#222;
+	width:100vh;
+	z-index: 2;
+}
+.top .content-body{
+	left:10%;
+}
+.top p{
+	width: 350px;
+}
+.handle{
+	position:absolute;
+	left:50%;
+	width:5px;
+	top:0;
+	background: #f62368;
+	height: 100%;
+	z-index: 3;
+}
+.skewed .handle{
+	top:50%;
+	transform:rotate(30deg) translateY(-50%);
+	height:200%;
+	transform-origin: top;
+}
+.skewed .top{
+	transform:skew(-30deg);
+	margin-left:-1000px;
+	width:calc(100vh + 1000px);
+}
+.skewed .top .content-wrapper{
+	transform:skew(30deg);
+	margin-left:1000px;
+}

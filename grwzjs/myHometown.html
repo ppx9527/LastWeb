@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>my hometown</title>
+	<link rel="stylesheet" href="css/main.css" />
+	<script src="../js/jquery.js"></script>
+	<script src="js/main.js"></script>
+	<style>
+		*,*::after,*::before{
+			margin: 0px;
+			padding: 0px;
+			box-sizing: border-box;
+		}
+		body {
+			background: #1f1f1f;
+		}
+		.menu > div {
+			box-sizing: content-box;
+		}
+	</style>
+	<script>
+		$(document).ready(function () {
+			picturePlay();
+		});
+	</script>
+</head>
+<body>
+	<div id="wrapper" class="clearfix">
+		<nav id="navbar">
+			<div class="logo">
+				<a href="index.html">
+				<img src="img/assassin.png">
+				<div>
+					<span>Assassin's Creed</span>
+				</div>
+				</a>
+			</div>
+			<!--导航栏上的logo-->
+			<div class="menu">
+				<form>
+					<input type="text" placeholder="Search" id="search">
+				</form>
+				<div>MENU</div>
+			</div>
+			<!--导航栏的菜单-->
+		</nav>
+		<div class="cont s-inactive">
+			<div class="cont-inner">
+		    	<div class="el">
+					<div class="el-overflow">
+			    		<div class="el-inner">
+				 			<div class="el-bg"></div>
+							<div class="el-preview-cont">
+							   	<h2 class="el-heading">奥陶纪</h2>
+							</div>
+							<div class="el-content">
+							   <div class="el-text">万盛最好玩</div>
+							   <div class="el-close-btn"></div>
+							</div>
+			   			</div>
+			 		</div>
+					<div class="el-index">
+					    <div class="el-index-back">1</div>
+					    <div class="el-index-front">
+							<div class="el-index-overlay" data-index="1">1</div>
+					    </div>
+					</div>
+		    	</div>
+				<div class="el">
+					<div class="el-overflow">
+						<div class="el-inner">
+							<div class="el-bg"></div>
+							<div class="el-preview-cont">
+								<h2 class="el-heading">版辽金沙滩</h2>
+							</div>
+							<div class="el-content">
+							   <div class="el-text">万盛最酷炫</div>
+							   <div class="el-close-btn"></div>
+							</div>
+						</div>
+					</div>
+					<div class="el-index">
+						<div class="el-index-back">2</div>
+						<div class="el-index-front">
+							<div class="el-index-overlay" data-index="2">2</div>
+						</div>
+					</div>
+				</div>
+				<div class="el">
+					<div class="el-overflow">
+						<div class="el-inner">
+							<div class="el-bg"></div>
+							<div class="el-preview-cont">
+								<h2 class="el-heading">黑山谷</h2>
+							</div>
+							<div class="el-content">
+							   <div class="el-text">万盛最凉快</div>
+							   <div class="el-close-btn"></div>
+							</div>
+						</div>
+					</div>
+					<div class="el-index">
+						<div class="el-index-back">3</div>
+						<div class="el-index-front">
+							<div class="el-index-overlay" data-index="3">3</div>
+						</div>
+					</div>
+				</div>
+				<div class="el">
+					<div class="el-overflow">
+						<div class="el-inner">
+							<div class="el-bg"></div>
+							<div class="el-preview-cont">
+								<h2 class="el-heading">石林</h2>
+							</div>
+							<div class="el-content">
+							   <div class="el-text">万盛最险峻</div>
+							   <div class="el-close-btn"></div>
+							</div>
+						</div>
+					</div>
+					<div class="el-index">
+						<div class="el-index-back">4</div>
+						<div class="el-index-front">
+							<div class="el-index-overlay" data-index="4">4</div>
+						</div>
+					</div>
+				</div>
+				<div class="el">
+					<div class="el-overflow">
+						<div class="el-inner">
+							<div class="el-bg"></div>
+							<div class="el-preview-cont">
+								<h2 class="el-heading">青山湖</h2>
+							</div>
+							<div class="el-content">
+							   <div class="el-text">万盛最美</div>
+							   <div class="el-close-btn"></div>
+							</div>
+						</div>
+					</div>
+					<div class="el-index">
+						<div class="el-index-back">5</div>
+						<div class="el-index-front">
+							<div class="el-index-overlay" data-index="5">5</div>
+						</div>
+					</div>
+				</div>
+		 	</div>
+		</div>
+		<footer>
+			重庆师范大学计算机信息与科学学院2017级职教赵鹏制作，版权所有&copy;！
+		</footer>
+		<audio src="music/Richard Clayderman - Clair de lune.mp3" autoplay loop></audio>
+	</div>
+	<nav id="menu">
+		<div class="menu-inner">
+			<ul class="links">
+				<li><a href="index.html">home</a></li>
+				<li><a href="myFamily.html">My family</a></li>
+				<li><a href="myHometown.html">My hometown</a></li>
+				<li><a href="http://www.cqnu.edu.cn/" target="_blank">My university</a></li>
+			</ul>
+			<ul class="login">
+				<li><a href="index.html"><span>get statred<i class="fa fa-angle-double-right fa-2x"></i></span></a></li>
+				<li><a href="#"><span>login in</span></a></li>
+			</ul>
+		</div>
+		<a class="close"></a>
+	</nav>
+</body>
+</html>

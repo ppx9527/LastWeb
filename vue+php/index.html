@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="Keywords" content="赵鹏,个人网页,个人介绍,计算机,音乐,电影,吉他,钢琴">
+	<meta name="Description" content="赵鹏的个人网页、期末大作业,本人主要从事与计算机和音乐行业.">
+	<!--SEO搜索引擎优化，添加搜索关键字-->
+	<title>个人博客</title>
+	<link rel="icon" href="image/16.ico">
+	<link rel="stylesheet" href="css/default.css">
+</head>
+<body style="background-color: #f4f4f4">
+
+<div id="body">
+	<navigation></navigation>
+		<transition mode="out-in" type="animate" enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
+			<keep-alive>
+				<router-view></router-view>
+				<router-view name="user"></router-view>
+			</keep-alive>
+		</transition>
+</div>
+
+<template id="nav">
+	<div>
+		<!-- 手机导航栏 -->
+		<nav class="navbar navbar-expand-lg navbar-light fixed-top bg-light" v-if="display">
+			<a href="#" @click.prevent="menuUi = true">
+				<svg version="1.1" width="32" height="32" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" enable-background="new 0 0 1000 1000">
+					<g>
+						<path d="M59,157h882c13.5,0,25.1,4.8,34.6,14.4S990,192.5,990,206c0,13.5-4.8,25.1-14.4,34.6c-9.6,9.6-21.1,14.4-34.6,14.4H59c-13.5,0-25.1-4.8-34.6-14.4C14.8,231.1,10,219.5,10,206c0-13.5,4.8-25.1,14.4-34.6S45.5,157,59,157z M59,745h882c13.5,0,25.1,4.8,34.6,14.4c9.6,9.6,14.4,21.1,14.4,34.6s-4.8,25.1-14.4,34.6c-9.6,9.6-21.1,14.4-34.6,14.4H59c-13.5,0-25.1-4.8-34.6-14.4C14.8,819.1,10,807.5,10,794s4.8-25.1,14.4-34.6C33.9,749.8,45.5,745,59,745z M59,451h882c13.5,0,25.1,4.8,34.6,14.4S990,486.5,990,500s-4.8,25.1-14.4,34.6c-9.6,9.6-21.1,14.4-34.6,14.4H59c-13.5,0-25.1-4.8-34.6-14.4C14.8,525.1,10,513.5,10,500s4.8-25.1,14.4-34.6S45.5,451,59,451z"></path>
+					</g>
+				</svg>
+			</a>
+			<a class="navbar-brand m-auto p-0" href="#">
+				<img src="image/logo.png" width="30" height="30" class="d-inline-block align-top" alt="基于vue">
+				个人博客
+			</a>
+			<a href="#" @click.prevent="search()">
+				<svg version="1.1" width="32" height="32" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" enable-background="new 0 0 1000 1000" >
+					<g>
+						<path d="M868.1,981.5L868.1,981.5c-29.9,17.6-68.5,7-85.2-22.8L674,770.7c-17.6-29.9-7-68.5,22.8-85.2l0,0c29.9-17.6,68.5-7,85.2,22.8l108.9,187.9C907.6,926.2,897.9,963.9,868.1,981.5z"></path>
+						<path d="M483.5,10.3C267.4,18.2,90.9,194.7,83,410.7c-8.8,238,180.9,433.8,417.1,433.8c18.4,0,37.8-0.9,55.3-3.5c6.1-0.9,9.7-7.9,6.1-13.2L519.5,754c-1.8-2.6-4.4-4.4-7.9-4.4c-3.5,0-7.9,0-11.4,0c-186.2,0-334.6-157.2-322.3-346c11.4-158.9,139.6-288,299.4-298.6c188.8-13.2,346,136.1,346,322.3c0,121.2-66.7,225.7-165.1,281c-8.8,4.4-11.4,15.8-6.1,23.7l37.8,65.9C825,728.6,917.2,589,917.2,426.5C917.2,191.2,721.4,1.5,483.5,10.3L483.5,10.3z"></path>
+					</g>
+				</svg>
+			</a>
+		</nav>
+		<!-- 电脑导航栏 -->
+		<nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color: rgb(227,242,253);" v-else>
+			<a class="navbar-brand ml-md-5" href="#">
+				<img src="image/logo.png" width="30" height="30" class="d-inline-block align-top" alt="基于vue">
+				个人博客
+			</a>
+			<ul class="navbar-nav text-center mr-auto flex-row">
+				<li class="nav-item">
+					<router-link class="nav-link" to="/home">主页</router-link>
+				</li>
+				<li class="nav-item">
+					<router-link class="nav-link" to="/message">留言板</router-link>
+				</li>
+				<li class="nav-item">
+					<router-link class="nav-link" to="/update-note">更新日志</router-link>
+				</li>
+			</ul>
+			<!-- 用户登录界面 -->
+			<transition name="login" mode="out-in" type="animation" enter-active-class="animated fadeInUp" leave-active-class="animated fadeOutUp">
+				<div class="nav nav-pills nav-fill login" v-if="!user.user_data.is_login" key="no" style="margin-right: 13%;">
+					<a class="nav-link nav-item" href="login.html#/login">登录</a>
+					<i style="padding-top: 7px;">|</i>
+					<a class="nav-link nav-item" href="login.html#/register">注册</a>
+				</div>
+				<!-- 用户已登录 -->
+				<div class="position-absolute" style="right: 20%;" v-else key="yes">
+					<router-link to="/user/user-data" class="position-absolute" style="z-index: 3;top: -30px;" >
+						<div style="height: 60px;" @mouseenter="big" @mouseleave="small">
+							<img :src="user.user_data.head_portrait" class="d-inline-block align-top i-face" :style="{top: top}"
+								:width="width" :height="height" alt="头像">
+						</div>
+					</router-link>
+					<transition name="face">
+						<div id="user-face" class="card" v-show="flag" @mouseleave="small" @mouseenter="big">
+							<div class="card-body text-center">
+								<h5 class="card-title">{{ user.user_data.user_name }}</h5>
+								<p class="card-text text-justify" v-if="user.user_data.sign !== null">个性签名：{{ user.user_data.sign }}</p>
+								<button class="btn btn-primary" @click="unLogin">注销 <i class="fa fa-paper-plane-o"></i></button>
+							</div>
+						</div>
+					</transition>
+				</div>
+			</transition>
+		</nav>
+		<!-- 手机导航界面 -->
+		<transition type="animation" enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
+			<div @click="menuUi = false" v-show="menuUi" class="position-fixed w-100 h-100" style="background-color: rgba(0, 0, 0, 0.5);z-index: 1030;top: 53px;">
+				<transition type="animation" enter-active-class="animated fadeInLeft" leave-active-class="animated fadeOutLeft">
+					<div class="h-100 pt-3" style="background-color: #fff;width: 65%;" v-show="menuUi">
+						<div class="nav nav-pills nav-fill mb-3" v-if="!user.user_data.is_login" key="no">
+							<a class="nav-link nav-item" href="login.html#/login">登录</a>
+							<i style="padding-top: 7px;">|</i>
+							<a class="nav-link nav-item" href="login.html#/register">注册</a>
+						</div>
+						<div class="nav flex-column" v-else key="yes">
+							<router-link class="m-auto" style="margin-bottom: 0.5rem !important;" to="/user/user-data">
+								<img :src="user.user_data.head_portrait" class="d-inline-block align-top" style="border-radius: 50%;" width="45"
+									height="45" alt="头像">
+							</router-link>
+							<a class="nav-link text-center" href="#" @click.prevent="unLogin">注销 <i class="fa fa-paper-plane-o"></i></a>
+						</div>
+						<ul class="list-group list-group-flush">
+							<li class="list-group-item">
+								<router-link class="nav-link p-0" to="/home">主页</router-link>
+							</li>
+							<li class="list-group-item">
+								<router-link class="nav-link p-0" to="/message">留言板</router-link>
+							</li>
+							<li class="list-group-item">
+								<router-link class="nav-link p-0" to="/update-note">更新日志</router-link>
+							</li>
+						</ul>
+					</div>
+				</transition>
+			</div>
+		</transition>
+	</div>
+</template>
+<template id="home">
+	<div id="home_wrapper">
+		<div class="container">
+			<div class="row mb-5">
+				<div class="col-lg-8">
+					<carousel></carousel>
+				</div>
+				<div class="col-lg-3 ml-5 d-none d-lg-block">
+					<div class="card mb-4">
+						<div class="card-body">
+							<h5 class="card-title">个人简介</h5>
+							<p class="card-text">我是赵鹏，现在就读于重庆师范大学，是计算机系的一名大二的学生。</p>
+						</div>
+					</div>
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title">博客简介</h5>
+							<p class="card-text">这是一个用Vue.js和Bootstrap框架组建的博客。使用了Vue-Router技术实现了单网页的路由，Vue-Resource技术实现了前后端的分离。</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item active">文章推荐</li>
+			</ol>
+			<my-article></my-article>
+		</div>
+		<footer>
+			<span>Design By：赵鹏</span><br>Power By：Vue,Bootstrap4
+		</footer>
+	</div>
+</template>
+<template id="carousel">
+	<div class="carousel w-100 h-100">
+		<transition-group tag="div" name="image" class="carousel-inner w-100 h-100">
+			<div v-for="(img, index) in images" :key="index" v-show="index===showIndex" class="w-100 h-100 position-absolute" @mouseenter="stop()" @mouseleave="start()">
+				<a :href="img.href" target="_blank">
+					<img :src="img.src" :alt="img.alt" class="d-block img-fluid">
+				</a>
+			</div>
+		</transition-group>
+		<ol class="carousel-indicators">
+			<li style="cursor: pointer;" v-for="(img, index) in images" :key="index" :class="[index === showIndex ? 'active':'']" @click="showIndex = index"></li>
+		</ol>
+	</div>
+</template>
+<template id="article">
+	<div class="cards">
+		<div class="card mb-4" v-for="(article, index) in articles" :key="index">
+			<div class="card-body">
+				<h4 class="card-title">
+					<router-link :to="{path:'/show-article',query:{id:article.id}}">{{ article.title }}</router-link>
+				</h4>
+				<h6 class="card-subtitle mb-2 text-muted">作者：{{ article.admin_name }}<br>发布时间：{{ article.ctime | time}}</h6>
+				<p class="card-text">赞：{{ article.goods }} &nbsp;&nbsp;评论数：{{ article.comments }}</p>
+			</div>
+		</div>
+	</div>
+</template>
+<template id="show-article">
+	<div id="show-article-wrapper">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8" style="background-color: #ffffff;">
+					<div id="article" class="mb-5">
+						<div class="text-center">
+							<h2 class="p-3">{{ article.title }}</h2>
+							<h6>作者：{{ article.admin_name }} 发布时间：{{ article.ctime | time}}</h6>
+						</div>
+						<p v-html="article.content"></p>
+					</div>
+					<div class="icon mb-2">
+						<div class="d-inline-block mr-3" :class="{'change-color':article.is_good == 1}"  @click="good()">
+							<i class="fa fa-2x fa-thumbs-up"></i>
+							<span>{{ article.goods }}</span>
+						</div>
+						<div class="d-inline-block mr-3">
+							<i class="fa fa-2x fa-commenting"></i>
+							<span>100</span>
+						</div>
+						<div class="d-inline-block mr-3">
+							<i class="fa fa-2x fa-share"></i>
+						</div>
+						<!-- <div class="d-inline-block mr-3">
+							<i class="fa fa-2x fa-twitter"></i>
+						</div>
+						<div class="d-inline-block mr-3">
+							<i class="fa fa-2x fa-weibo"></i>
+						</div>
+						<div class="d-inline-block mr-3">
+							<i class="fa fa-2x fa-qq"></i>
+						</div> -->
+					</div>
+					<form>
+						<fieldset :disabled="user_id == -1">
+							<div class="form-group row m-0">
+								<textarea class="form-control col-10" id="exampleFormControlTextarea1" rows="2" placeholder="请自觉遵守互联网相关的政策法规，严禁发布色情、暴力、反动的言论。" v-model="content"></textarea>
+								<button class="btn btn-primary ml-3" @click="submit()">立即评论</button>
+							</div>
+							<h6 class="text-muted mt-2" v-if="user_id == -1">
+								未登录不能留言，去<a href="login.html#/login">登录</a>
+							</h6>
+						</fieldset>
+					</form>
+					<div v-if="Object.keys(comments).length">
+						<div class="text-center comment">
+							<span>———————</span>——— 评论列表 ———<span>———————</span>
+						</div>
+						<div id="lists">
+							<div id="list" v-for="(comment, index) in comments" :key="index" class="position-relative">
+								<h6 class="text-muted d-inline-block" style="line-height: 60px">#{{ index + 1 }}&nbsp;&nbsp;&nbsp;</h6>
+								<img :src="comment.head_portrait" class="user-img">
+								<div class="d-inline-block">
+									<div>
+										{{ comment.user_name }}&nbsp;&nbsp;
+										<span class="text-muted">{{ comment.ctime | time }}</span>
+									</div>
+									<div>{{ comment.content }}</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div v-else>
+						<h5 class="">还没有评论哦！</h5>
+					</div>
+				</div>
+				<div class="col-lg-4 d-lg-block d-none">
+					<div class="col-10 ml-md-auto" style="background-color: #ffffff;">
+						<h1>文章推荐</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+		<footer>
+			<span>Design By：赵鹏</span><br>Power By：Vue,Bootstrap4
+		</footer>
+	</div>
+</template>
+<template id="message">
+	<div id="message_wrapper">
+		<div class="container">
+			<h2 class="text-center">留言板</h2>
+			<form>
+				<fieldset :disabled = "user_id === ''">
+					<div class="form-group row">
+						<textarea class="form-control col-8" id="exampleFormControlTextarea1" rows="3" placeholder="留下你的足迹（没有字数限制）" v-model="content"></textarea>
+						<button class="btn btn-primary ml-3" @click="submit()">立即评论</button>
+					</div>
+					<h6 class="text-muted mt-2" v-if="user_id === ''">
+						未登录不能留言，去<a href="login.html#/login">登录</a>
+					</h6>
+				</fieldset>
+			</form>
+			<div class="text-center comment">
+				<span>———————</span>———  评论列表  ———<span>———————</span>
+			</div>
+			<div id="lists">
+				<div id="list" v-for="(user, index) in list" :key="index" class="position-relative">
+					<h6 class="text-muted d-inline-block" style="line-height: 60px">#{{ index + 1 }}&nbsp;&nbsp;&nbsp;</h6>
+					<img :src="user.head_portrait" class="user-img">
+					<div class="d-inline-block">
+						<div>
+							{{ user.user_name }}&nbsp;&nbsp;
+							<span class="text-muted">{{ user.ctime | time }}</span>
+						</div>
+						<div>{{ user.content }}</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<footer>
+			<span>Design By：赵鹏</span><br>Power By：Vue,Bootstrap4
+		</footer>
+	</div>
+</template>
+<template id="user">
+	<div id="user_wrapper">
+		<div class="container">
+			<ul class="nav nav-fill mb-4">
+				<li class="nav-item">
+					<router-link to="user-data" class="nav-link">更新个人资料</router-link>
+				</li>
+				<li class="nav-item">
+					<router-link to="user-portrait" class="nav-link">更换头像</router-link>
+				</li>
+				<li class="nav-item">
+					<router-link to="user-password" class="nav-link">更改密码</router-link>
+				</li>
+			</ul>
+			<transition name="user" type="animation" mode="out-in" enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
+				<router-view></router-view>
+			</transition>
+		</div>
+		<footer>
+			<span>Design By：赵鹏</span><br>Power By：Vue,Bootstrap4
+		</footer>
+	</div>
+</template>
+<template id="user-data">
+	<div class="col-md-8 m-auto">
+		<form>
+			<div class="form-group row mb-md-5">
+				<label for="colFormLabelSm1" class="col-sm-2 col-form-label">用户名</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" id="colFormLabelSm1" v-model="user.user_data.user_name">
+				</div>
+			</div>
+			<div class="form-group row  mb-md-5">
+				<label for="colFormLabelSm3" class="col-sm-2 col-form-label">电子邮箱</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" id="colFormLabelSm3" v-model="user.user_data.email">
+				</div>
+			</div>
+			<div class="form-group row  mb-md-5">
+				<label for="colFormLabelSm6" class="col-sm-2 col-form-label">年龄</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" id="colFormLabelSm6" v-model="user.user_data.age">
+				</div>
+			</div>
+			<div class="form-group row  mb-md-5">
+				<label class="col-sm-2 col-form-label">性别</label>
+				<div class="col-sm-10" style="padding-top: 10px;">
+					<div class="custom-control custom-radio custom-control-inline">
+						<input type="radio" name="radioDisabled" id="customRadioDisabled1" class="custom-control-input" value="男" v-model="user.user_data.sex">
+						<label class="custom-control-label" for="customRadioDisabled1">男</label>
+					</div>
+					<div class="custom-control custom-radio custom-control-inline">
+						<input type="radio" name="radioDisabled" id="customRadioDisabled2" class="custom-control-input" value="女"  v-model="user.user_data.sex">
+						<label class="custom-control-label" for="customRadioDisabled2">女</label>
+					</div>
+				</div>
+			</div>
+			<div class="form-group row  mb-md-5">
+				<label for="colFormLabelSm2" class="col-sm-2 col-form-label">个性签名</label>
+				<div class="col-sm-10">
+					<textarea rows="2" class="form-control" id="colFormLabelSm2" v-model="user.user_data.sign"></textarea>
+				</div>
+			</div>
+			<button class="btn btn-block btn-primary btn-lg" @click.prevent="submit">提交</button>
+		</form>
+	</div>
+</template>
+<template id="user-password">
+	<div class="col-md-8 m-auto">
+		<form>
+			<div class="form-group row  mb-5">
+				<label for="colFormLabelSm10" class="col-sm-2 col-form-label">密码</label>
+				<div class="col-sm-10">
+					<input type="password" class="form-control" id="colFormLabelSm10" v-model="password">
+				</div>
+			</div>
+			<button class="btn btn-block btn-primary btn-lg" @click.prevent="submit">提交</button>
+		</form>
+	</div>
+</template>
+<template id="user-portrait">
+	<div class="col-md-8 m-auto">
+			<div class="row mb-5">
+				<img :src="src" class="m-auto" width="250" height="250" style="border-radius: 50%">
+			</div>
+		<form class="needs-validation">
+			<div class="custom-file mb-5">
+				<input type="file" class="custom-file-input" :class="{'is-invalid':flag}" id="validatedCustomFile" @change="choose_img" required>
+				<label class="custom-file-label" for="validatedCustomFile">{{ fileName }}</label>
+				<div class="invalid-feedback" v-show="flag">{{ tip }}</div>
+			</div>
+			<button class="btn btn-block btn-primary btn-lg" @click.prevent="submit">提交</button>
+		</form>
+	</div>
+</template>
+<template id="update-note">
+	<div id="update-wrapper">
+		<div class="container">
+			<header class="time-title">
+				<span>更新日志</span>
+				<h1>时间轴</h1>
+			</header>
+			<div class="main">
+				<ul class="cbp_tmtimeline">
+					<li v-for="(note, index) in notes" :key="index">
+						<time class="cbp_tmtime" :datetime="note.ctime">
+							<span>{{note.ctime | datetime('date')}}</span>
+							<span>{{note.ctime | datetime('time')}}</span>
+						</time>
+						<div class="cbp_tmicon cbp_tmicon-phone"></div>
+						<div class="cbp_tmlabel">
+							<h2>{{note.title}}</h2>
+							<p>{{note.content}}</p>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<footer>
+			<span>Design By：赵鹏</span><br>Power By：Vue,Bootstrap4
+		</footer>
+	</div>
+</template>
+<script src="/js/vue.js"></script>
+<script src="/js/vue-router.js"></script>
+<script src="/js/vue-resource.js"></script>
+<script src="js/main.js"></script>
+<script>
+	Vue.filter('time',value => {
+		value = new Date(parseInt(value));
+		return value.toLocaleDateString() + ' ' + value.getHours() + ':' + value.getMinutes();
+	});
+	// 用户数据
+	const person = {
+		user_data:''
+	};
+	Vue.http.get('login.php').then(response => {
+		if (response.body === '0') {
+			//服务器没检查到cookie，什么也不做
+		} else {
+			person.user_data = response.body;
+			person.user_data.is_login = true;
+		}
+	});
+	// 导航栏组件
+	const navigation = {
+		template: '#nav',
+		data () {
+			return {
+				width:40,
+				height:40,
+				flag:false,
+				top:'10px',
+				display:false,
+				menuUi:false,
+				user:person,
+			}
+		},
+		methods:{
+			big() {
+				this.width = 60;
+				this.height = 60;
+				this.top = '30px';
+				this.flag = true;
+			},
+			small() {
+				if (this.flag === true) {
+					this.width = 40;
+					this.height = 40;
+					this.top = '10px';
+					this.flag = false;
+				}
+			},
+			unLogin () {
+				del_cookie('user');
+				location.href = 'index.html';
+			},
+			search(key) {
+				
+			}
+		},
+		created() {
+			if (window.innerWidth <= 450) {
+				this.display = true;
+			}
+			addEventListener('resize',() => {
+				this.display = window.innerWidth <= 450;
+			});
+		}
+	};
+	// 轮播组件
+	const carousel = {
+		template:'#carousel',
+		data() {
+			return {
+				images:'',
+				showIndex:0
+			}
+		},
+		methods:{
+			changeIndex() {
+				if (this.showIndex > this.images.length - 2){
+					this.showIndex = 0;
+				} else {
+					this.showIndex++;
+				}
+			},
+			stop(){
+				clearInterval(this.timer);
+			},
+			start(){
+				this.timer = setInterval(this.changeIndex,5000);
+			}
+		},
+		mounted () {
+			this.start();
+			document.addEventListener('visibilitychange', () => {
+				if (document.visibilityState === "hidden") {
+					this.stop();
+				} else {
+					this.start();
+				}
+			}, false);
+		},
+		created() {
+			this.$http.get('carousel.php').then(response => {
+				this.images = response.body;
+			});
+		}
+	};
+	// 博文组件
+	const myArticle = {
+		template: '#article',
+		data() {
+			return {
+				articles: ''
+			}
+		},
+		created() {
+			this.$http.get('article.php').then(response => {
+				this.articles = response.body;
+			});
+		}
+	};
+	// 展示文章组件
+	const showArticle = {
+		template:'#show-article',
+		data() {
+			return{
+				id:'',
+				article:'',
+				comments:[],
+				user_id:-1,
+				content:'',
+			}
+		},
+		methods: {
+			get_data(id){
+				this.$http.get('article.php',{
+					params:{
+						'id':this.id,
+						user_id:this.user_id,
+						flag:'get-article'
+					}
+				}).then(Response => {
+					let data = Response.body;
+					this.article = data[0];
+					this.comments = data[1];
+				});
+			},
+			submit(){
+				if(this.content === ''){
+					alert('评论内容不能为空');
+					return;
+				}
+				this.$http.post('article.php',{
+					id: this.id,
+					user_id: this.user_id,
+					content:this.content,
+					ctime:Date.now()
+				}, {
+					'emulateJSON': true
+				}).then(response => {
+					let text = response.body;
+					if (text === '1') {
+						alert('评论成功');
+						this.comments.unshift({
+							user_name:person.user_data.user_name,
+							head_portrait:person.user_data.head_portrait,
+							content:this.content,
+							ctime:Date.now()
+						});
+					} else {
+						alert('评论失败');
+					}
+				});
+			},
+			good(){
+				if(this.user_id !== -1){
+					if(this.article.is_good == 1){
+						return;
+					}
+					this.$http.get('article.php',{
+						params: {
+							id: this.id,
+							user_id: this.user_id,
+							ctime:Date.now(),
+							flag:'add-good'
+						}
+					});
+					this.article.goods = parseInt(this.article.goods) + 1;
+					this.article.is_good = 1;
+				} else{
+					alert('未登录不能点赞');
+				}
+			}
+		},
+		created() {
+			let user = get_cookie('user_id');
+			if (user !== 0) {
+				this.user_id = user;
+			}
+			this.id = this.$route.query.id;
+			this.get_data(this.id);
+		},
+		watch: {
+			$route (to, from) {
+				if (Object.keys(to.query).length) {
+					let id = to.query.id;
+					if (id != this.id){
+						this.id = id;
+						this.get_data(id);
+					}
+				}
+			}
+		},
+
+	};
+	// 主页组件
+	const home = {
+		template:'#home',
+		components:{
+			carousel,
+			'my-article':myArticle
+		}
+	};
+	// 留言板组件
+	const message = {
+		template:'#message',
+		data() {
+			return {
+				content:'',
+				list:[],
+				user_id:''
+			}
+		},
+		methods:{
+			submit() {
+				if(this.content === ''){
+					alert('留言内容不能为空');
+					return;
+				}
+				const user = {
+					'user_id':this.user_id,
+					'content':this.content,
+					'ctime':Date.now()
+				};
+				this.$http.post('message.php',user,{
+					'emulateJSON':true
+				}).then(response => {
+					let text = response.body;
+					if (text === '1') {
+						alert('留言成功');
+						this.list.unshift({
+							user_name: person.user_data.user_name,
+							head_portrait: person.user_data.head_portrait,
+							content: this.content,
+							ctime: Date.now()
+						});
+					} else {
+						alert('留言失败');
+					}
+				});
+			}
+		},
+		created () {
+			this.$http.get('message.php').then(response => {
+				let text = response.body;
+				if (text !== '0') {
+					this.list = text;
+				}
+				let id = get_cookie('user_id');
+				if (user !== 0) {
+					this.user_id = id;
+				}
+			});
+		}
+	};
+	// 用户信息组件
+	const user = {
+		template:'#user',
+		data() {
+			return {
+				user:''
+			}
+		},
+		created() {
+			let user = get_cookie('user_id');
+			if (user === 0) {
+				alert('你还未登录');
+				location.href = 'index.html';
+			} else {
+				this.user = person;
+			}
+		}
+	};
+	// 个人资料组件
+	const user_data = {
+		template:'#user-data',
+		data () {
+			return {
+				user:'',
+			}
+		},
+		methods:{
+			submit() {
+				this.$http.post('login.php',this.user.user_data,{
+					'emulateJSON':true
+				}).then(response => {
+					if (response.body === '1') {
+						alert('更新成功');
+					} else {
+						alert('更新失败');
+					}
+				});
+			}
+		},
+		created() {
+			this.user = person;
+		},
+	};
+	// 更改密码
+	const user_password = {
+		template:'#user-password',
+		data() {
+			return {
+				password: ''
+			}
+		},
+		methods: {
+			submit(){
+				if (this.password) {
+					this.$http.get().then(response => {
+					
+					});
+				} else {
+					alert('密码不能为空')
+				}
+			}
+		}
+	};
+	 // 更换头像组件
+	const user_portrait = {
+		template:'#user-portrait',
+		data() {
+			return {
+				img:'',
+				fileName:'请选择图片...',
+				src:'',
+				accept: 'image/gif, image/jpeg, image/png, image/jpg',
+				tip:'',
+				flag:false,
+			};
+		},
+		methods:{
+			choose_img (event){
+				this.img = event.target.files[0];
+				this.fileName = this.img.name;
+				if(this.accept.indexOf(this.img.type) === -1){
+					this.tip = '请选择我们支持的图片格式！';
+					this.flag = true;
+					return;
+				}
+				if(this.img.size > 3145728){
+					this.tip = '请选择3M以内的图片！';
+					this.flag = true;
+					return;
+				}
+				this.flag = false;
+				this.src = URL.createObjectURL(this.img);
+			},
+			submit () {
+				let form = new FormData();
+				if (this.flag === false && this.img !== '') {
+					form.append('file',this.img,this.fileName);
+					this.$http.post('head_portrait.php',form,{
+						headers:{'Content-Type':'multipart/form-data'},
+					}).then(response => {
+						if (response.body === '1') {
+							alert('修改成功');
+						} else {
+							alert('修改失败');
+						}
+					});
+				} else {
+					alert('上传失败，请检查文件！');
+				}
+			}
+		},
+		mounted () {
+			this.src = person.user_data.head_portrait;
+		}
+	};
+	// 更新日志组件
+	const update_note = {
+		template:'#update-note',
+		data(){
+			return {
+				notes:''
+			}
+		},
+		created() {
+			this.$http.get('note.php',{
+				params:{
+					flag:'data'
+				}
+			}).then(Response => {
+				this.notes = Response.body;
+			});
+		},
+		filters:{
+			datetime (value,flag){
+				value = new Date(parseInt(value));
+				if(flag === 'date'){
+					return value.toLocaleDateString();
+				} else {
+					return value.getHours() + ':' + value.getMinutes();
+				}
+			}
+		}
+	};
+	// 主页路由
+	const routes = [
+		{path:'/home',component: home},
+		{path:'/message', component:message},
+		{path:'/show-article',component:showArticle},
+		{
+			path:'/user',component:user,
+			children:[
+				{
+					path:'user-data',
+					component:user_data
+				},
+				{
+					path:'user-portrait',
+					component:user_portrait
+				},
+				{
+					path:'user-password',
+					component:user_password
+				}
+			]
+		},
+		{path:'/update-note',component:update_note},
+		{path:'/',redirect:'/home'}
+	];
+	const router = new VueRouter({
+		routes,
+		linkActiveClass: 'active'
+	});
+	// Vue实例
+	new Vue({
+		el:'#body',
+		router,
+		components:{
+			navigation
+		},
+	});
+</script>
+</body>
+</html>

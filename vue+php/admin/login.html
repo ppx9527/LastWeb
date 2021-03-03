@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>后台登录</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="icon" href="../image/16.ico">
+	<link rel="stylesheet" href="/bootstrap/css/bootstrap.css">
+	<link rel="stylesheet" href="/font-awesome/css/font-awesome.css">
+	<style>
+		html{
+			background-color: #f5f7ff;
+			height: 100%;
+		}
+		body{
+			background-color: #f5f7ff;
+		}
+		@media screen  and (min-width:521px){
+			.container{
+				width: 420px;
+				box-shadow: 0 2px 8px rgba(12,12,13,0.1);
+				margin-top: 130px;
+			}
+		}
+		@media screen and (max-width:520px) {
+			.right,.left{
+				display: none;
+			}
+			.container{
+				max-width: 420px;
+				min-width: 300px;
+				margin-top: 60px;
+			}
+			html{
+				background-color: rgb(255, 255, 255);
+			}
+			body{
+				background-color: rgb(255, 255, 255);
+			}
+		}
+		.container{
+			box-sizing: border-box;
+			position: relative;
+			z-index: 999;
+			background-color: rgb(255,255,255);
+		}
+		.right{
+			position: absolute;
+			left: 0;
+			top: 13px;
+			z-index: 3;
+		}
+		.left{
+			position: absolute;
+			right: 0;
+			top: 13px;
+			z-index: 3;
+		}
+	</style>
+</head>
+<body>
+<div class="container p-5" id="wrapper">
+	<h2 class="text-center">后台登录</h2>
+	<login></login>
+</div>
+
+<div class="right">
+	<img src="../image/1.png" alt="右">
+</div>
+<div class="left">
+	<img src="../image/2.png" alt="左">
+</div>
+
+<template id="login">
+	<form class="mt-5" novalidate>
+		<div class="form-group mb-4">
+			<label class="sr-only" for="validationCustom1">用户名</label>
+			<div class="input-group">
+				<div class="input-group-prepend">
+					<div class="input-group-text">
+						<i class="fa fa-user-o fa-fw"></i>
+					</div>
+				</div>
+				<input :class="{'form-control':true,'is-invalid':valid1}" type="text" id="validationCustom1" placeholder="用户名" v-model="user"  @keypress="keypress('valid1')">
+				<transition type="animation" enter-active-class="animated tada" leave-active-class="animated bounceOut">
+					<div :class="{'invalid-feedback':valid1}" v-if="valid1" style="display: block;">{{ message1 }}</div>
+				</transition>
+			</div>
+		</div>
+		<div class="form-group mb-4">
+			<label class="sr-only" for="validationCustom2">密码</label>
+			<div class="input-group">
+				<div class="input-group-prepend">
+					<div class="input-group-text">
+						<i class="fa fa-lock fa-fw"></i>
+					</div>
+				</div>
+				<input :class="{'form-control':true,'is-invalid':valid2}" type="password" id="validationCustom2" placeholder="密码" v-model="password" @keypress="keypress('valid2')">
+				<transition type="animation" enter-active-class="animated wobble" leave-active-class="animated lightSpeedOut">
+					<div :class="{'invalid-feedback':valid2}" v-if="valid2" style="display: block;">{{ message2 }}</div>
+				</transition>
+			</div>
+		</div>
+		<button type="submit" class="btn btn-block btn-lg btn-primary" @click.prevent="submit">登录</button>
+	</form>
+</template>
+<script src="/js/vue.js"></script>
+<script src="/js/vue-resource.js"></script>
+<script>
+	const login = {
+		template:'#login',
+		data () {
+			return{
+				user:'admin',
+				password:'123456',
+				message1:'',
+				message2:'',
+				valid1:false,
+				valid2:false
+			}
+		},
+		methods:{
+			submit () {
+				if (this.user !== '' && this.password !== '') {
+					this.$http.post('login.php',{
+						'user':this.user,
+						'password':this.password
+					},{
+						'emulateJSON':true
+					}).then(response => {
+						let state = response.body;
+						if (state === '0') {
+							this.message1 = '用户名错误，请输入正确的用户名';
+							this.valid1 = true;
+						} else if (state === '1') {
+							this.message2 = '密码错误，请输入正确的密码';
+							this.valid2 = true;
+						} else if (state === '2') {
+							self.location.href="index.html";
+						} else {
+							alert(`服务器错误${state}`);
+						}
+					},response => {
+						alert(`登录失败，请求状态码：${response.status}`);
+					});
+				} else {
+					if (this.user === '') {
+						this.message1 = '用户名不能为空';
+						this.valid1 = true;
+					}
+					if (this.password === '') {
+						this.message2 = '密码不能为空';
+						this.valid2 = true;
+					}
+				}
+			},
+			keypress (id) {
+				if (this.valid1 === true || this.valid2 === true) {
+					eval(`this.${id}=false`);
+				}
+			}
+		}
+	};
+	new Vue({
+		components:{
+			login
+		}
+	}).$mount('#wrapper');
+</script>
+</body>
+</html>
